@@ -11,5 +11,5 @@ If there are any icons you would like uploaded or you would like other file type
 
 ## Usage 
 Ensure you use the public endpoint to reference any icons you wish to use in your deployment tools: 
-```https://raw.githubusercontent.com/litlabsau/macos-icons/refs/heads/main/png/1password.png```
+```https://raw.githubusercontent.com/litlabsau/macos-icons/refs/heads/main/png/{IconName}.png```
 Alternatively, the repo can be cloned if you prefer the icons to be available locally.
