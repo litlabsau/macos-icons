@@ -22,7 +22,7 @@ title: MacOS-Icons
 email: josh@litlabs.au
 description: >- # this means to ignore newlines until "baseurl:"
   A collection of icons for MacOS applications and Apple system icons
-baseurl: "/macos-icons/" # the subpath of your site, e.g. /blog
+baseurl: "/macos-icons" # the subpath of your site, e.g. /blog
 url: "https://litlabsau.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: litlabsau
 

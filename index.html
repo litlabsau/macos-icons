@@ -5,47 +5,111 @@ layout: default
 {% assign icons = site.static_files | where_exp: "file", "file.path contains
 '/png/'" | sort: "name" %}
 
-<div class="flex items-center justify-between gap-4 mb-6">
-    <input
-        id="search"
-        type="text"
-        placeholder="Search icons…"
-        class="input input-bordered w-full max-w-xs"
-    />
-    <span class="badge badge-neutral badge-lg">{{ icons | size }} icons</span>
+<div class="d-flex justify-content-between align-items-center gap-3 mb-4">
+    <div class="input-group mb-3">
+        <a class="input-group-text">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 18.3691 17.998"
+                height="16"
+                width="10"
+                fill="currentColor"
+                aria-hidden="true"
+            >
+                <path
+                    d="M0 7.79297C0 12.0898 3.49609 15.5859 7.79297 15.5859C9.49219 15.5859 11.0449 15.0391 12.3242 14.1211L17.1289 18.9355C17.3535 19.1602 17.6465 19.2676 17.959 19.2676C18.623 19.2676 19.082 18.7695 19.082 18.1152C19.082 17.8027 18.9648 17.5195 18.7598 17.3145L13.9844 12.5098C14.9902 11.2012 15.5859 9.57031 15.5859 7.79297C15.5859 3.49609 12.0898 0 7.79297 0C3.49609 0 0 3.49609 0 7.79297ZM1.66992 7.79297C1.66992 4.41406 4.41406 1.66992 7.79297 1.66992C11.1719 1.66992 13.916 4.41406 13.916 7.79297C13.916 11.1719 11.1719 13.916 7.79297 13.916C4.41406 13.916 1.66992 11.1719 1.66992 7.79297Z"
+                />
+            </svg>
+        </a>
+        <input
+            id="search"
+            type="text"
+            class="form-control"
+            style="max-width: 20rem"
+            placeholder="Search icons…"
+        />
+    </div>
+    <span class="badge text-bg-success fs-6 rounded-pill"
+        >{{ icons | size }} icons</span
+    >
 </div>
 
-<section
+<div
     id="gallery"
-    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+    class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3"
 >
     {% for icon in icons %}
-    <div
-        class="icon-card card bg-base-100 shadow-sm hover:shadow-md transition-shadow"
-        data-name="{{ icon.basename }}"
-        data-url="{{ icon.path | absolute_url }}"
-    >
-        <figure class="px-4 pt-4">
-            <img
-                src="{{ icon.path | relative_url }}"
-                alt="{{ icon.basename }} icon"
-                loading="lazy"
-                width="80"
-                height="80"
-                class="w-20 h-20 object-contain"
-            />
-        </figure>
-        <div class="card-body items-center text-center gap-2 p-3">
-            <p
-                class="text-xs font-medium truncate w-full"
-                title="{{ icon.basename }}"
+    <div class="col">
+        <div
+            class="icon-card card"
+            data-name="{{ icon.basename }}"
+            data-url="{{ icon.path | absolute_url }}"
+        >
+            <div
+                class="card-body d-flex flex-column align-items-center text-center gap-2 p-3"
             >
-                {{ icon.basename }}
-            </p>
-            <button class="copy-btn btn btn-xs btn-outline w-full">
-                Copy URL
-            </button>
+                <img
+                    src="{{ icon.path | relative_url }}"
+                    alt="{{ icon.basename }} icon"
+                    loading="lazy"
+                    width="80"
+                    height="80"
+                    style="width: 5rem; height: 5rem; object-fit: contain"
+                />
+                <p
+                    class="small fw-medium text-truncate w-100 mb-0"
+                    title="{{ icon.basename }}"
+                >
+                    {{ icon.basename }}
+                </p>
+                <div class="d-flex gap-2 align-items-center">
+                    <button
+                        class="copy-btn btn btn-outline-primary btn-sm"
+                        style="flex: 1 1 0"
+                        title="Copy URL"
+                        aria-label="Copy URL"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 16.7871 27.0605"
+                            height="16"
+                            width="10"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M16.4258 6.91406L16.4258 21.7285C16.4258 23.7793 15.4199 24.7949 13.3984 24.7949L3.02734 24.7949C1.00586 24.7949 0 23.7793 0 21.7285L0 6.91406C0 4.86328 1.00586 3.84766 3.02734 3.84766L3.15794 3.84766C3.14873 3.93003 3.14453 4.01489 3.14453 4.10156L3.14453 5.12695C3.14453 6.35742 4.00391 7.22656 5.19531 7.22656L11.2305 7.22656C12.4219 7.22656 13.2812 6.35742 13.2812 5.12695L13.2812 4.10156C13.2812 4.01489 13.2771 3.93003 13.2678 3.84766L13.3984 3.84766C15.4199 3.84766 16.4258 4.86328 16.4258 6.91406ZM3.76953 18.3203C3.41797 18.3203 3.13477 18.6035 3.13477 18.9453C3.13477 19.2871 3.42773 19.5801 3.76953 19.5801L8.24219 19.5801C8.58398 19.5801 8.86719 19.2871 8.86719 18.9453C8.86719 18.6035 8.59375 18.3203 8.24219 18.3203ZM3.76953 14.5508C3.41797 14.5508 3.13477 14.8242 3.13477 15.1758C3.13477 15.5273 3.41797 15.8105 3.76953 15.8105L12.6562 15.8105C13.0078 15.8105 13.291 15.5273 13.291 15.1758C13.291 14.8242 13.0078 14.5508 12.6562 14.5508ZM3.76953 10.9668C3.42773 10.9668 3.13477 11.2598 3.13477 11.6113C3.13477 11.9531 3.42773 12.2363 3.76953 12.2363L12.6562 12.2363C12.998 12.2363 13.291 11.9531 13.291 11.6113C13.291 11.2598 12.998 10.9668 12.6562 10.9668Z"
+                            />
+                            <path
+                                d="M10.332 3.13477L11.2305 3.13477C11.7969 3.13477 12.1387 3.49609 12.1387 4.10156L12.1387 5.12695C12.1387 5.73242 11.7969 6.09375 11.2305 6.09375L5.19531 6.09375C4.62891 6.09375 4.28711 5.73242 4.28711 5.12695L4.28711 4.10156C4.28711 3.49609 4.62891 3.13477 5.19531 3.13477L6.09375 3.13477C6.16211 2.03125 7.08008 1.13281 8.21289 1.13281C9.3457 1.13281 10.2637 2.03125 10.332 3.13477ZM7.36328 3.21289C7.36328 3.67188 7.74414 4.0625 8.21289 4.0625C8.68164 4.0625 9.0625 3.67188 9.0625 3.21289C9.0625 2.73438 8.68164 2.35352 8.21289 2.35352C7.74414 2.35352 7.36328 2.73438 7.36328 3.21289Z"
+                            />
+                        </svg>
+                    </button>
+                    <a
+                        class="btn btn-outline-primary btn-sm"
+                        style="flex: 1 1 0"
+                        href="{{ icon.path | relative_url }}"
+                        download="{{ icon.name }}"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 18.3691 17.998"
+                            height="16"
+                            width="10"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M12.8027 2.24609C12.8027 0.820312 12.002 0 10.6055 0L7.29492 0C5.89844 0 5.09766 0.820312 5.09766 2.24609L5.09766 14.2773C5.09766 15.7031 5.89844 16.5234 7.29492 16.5234L10.6055 16.5234C12.002 16.5234 12.8027 15.7031 12.8027 14.2773ZM1.14258 10.3613C0.488281 10.3613 0 10.8496 0 11.5137C0 11.9922 0.195312 12.3828 0.634766 12.8516L7.91016 20.5566C8.26172 20.9277 8.63281 21.0547 8.95508 21.0547C9.28711 21.0547 9.6582 20.9277 10.0098 20.5566L17.2168 12.8516C17.7051 12.334 17.9199 12.0117 17.9199 11.5332C17.9199 10.8496 17.373 10.3613 16.7188 10.3613Z"
+                            />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}
-</section>
+</div>

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = search.value.trim().toLowerCase();
     cards.forEach((card) => {
       const match = card.dataset.name.toLowerCase().includes(q);
-      card.classList.toggle("hidden", !match);
+      card.closest(".col").classList.toggle("d-none", !match);
     });
   });
 });
