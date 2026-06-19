@@ -50,9 +50,9 @@ layout: default
                 class="card-body d-flex flex-column align-items-center text-center gap-2 p-3"
             >
                 <img
-                    src="{{ icon.path | relative_url }}"
+                    src="{{ '/assets/thumbs/' | append: icon.basename | append: '.webp' | relative_url }}"
+                    onerror="this.onerror=null; this.src='{{ icon.path | relative_url }}';"
                     alt="{{ icon.basename }} icon"
-                    loading="lazy"
                     width="80"
                     height="80"
                     style="width: 5rem; height: 5rem; object-fit: contain"
