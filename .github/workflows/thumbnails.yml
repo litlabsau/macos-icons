@@ -1,0 +1,45 @@
+name: Generate thumbnails
+
+# Regenerates WebP thumbnails whenever icons change, then commits them back
+# so the GitHub Pages build can serve them. Originals in png/ are untouched.
+
+on:
+  push:
+    branches: [gh-pages] # change to the branch your site builds from
+    paths:
+      - "png/**"
+      - "scripts/generate-thumbnails.js"
+      - "package.json"
+      - ".github/workflows/thumbnails.yml"
+  workflow_dispatch: {} # allows manual runs from the Actions tab
+
+permissions:
+  contents: write # needed so the workflow can push the generated thumbnails
+
+jobs:
+  thumbnails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate thumbnails
+        run: node scripts/generate-thumbnails.js
+
+      - name: Commit thumbnails if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/thumbs
+          if git diff --cached --quiet; then
+            echo "No thumbnail changes to commit."
+          else
+            git commit -m "chore: regenerate icon thumbnails [skip ci]"
+            git push
+          fi
