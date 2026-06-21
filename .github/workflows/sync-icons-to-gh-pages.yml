@@ -1,0 +1,43 @@
+name: Sync icons to gh-pages
+
+# When icons are pushed to main, copy the png/ folder into the gh-pages branch.
+# The push is authenticated with a PAT (secrets.SYNC_TOKEN) instead of the
+# default GITHUB_TOKEN, so it DOES trigger the thumbnails workflow on gh-pages.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "png/**"
+  workflow_dispatch: {} # allows manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          token: ${{ secrets.MACOSICONS_PAT }} # PAT — required for the chain to fire
+
+      - name: Copy png/ from main
+        run: |
+          git fetch origin main
+          rm -rf png
+          git checkout origin/main -- png
+
+      - name: Commit and push if icons changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add png
+          if git diff --cached --quiet; then
+            echo "No icon changes to sync."
+          else
+            git commit -m "chore: sync icons from main"
+            git push origin gh-pages
+          fi
