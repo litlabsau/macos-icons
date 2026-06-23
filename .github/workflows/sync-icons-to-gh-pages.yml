@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - "png/**"
+      - "ICONS.md"
   workflow_dispatch: {} # allows manual runs from the Actions tab
 
 permissions:
@@ -24,20 +25,20 @@ jobs:
           ref: gh-pages
           token: ${{ secrets.MACOSICONS_PAT }} # PAT — required for the chain to fire
 
-      - name: Copy png/ from main
+      - name: Copy png/ and ICONS.md from main
         run: |
           git fetch origin main
           rm -rf png
-          git checkout origin/main -- png
+          git checkout origin/main -- png ICONS.md
 
       - name: Commit and push if icons changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add png
+          git add png ICONS.md
           if git diff --cached --quiet; then
-            echo "No icon changes to sync."
+            echo "No changes to sync."
           else
-            git commit -m "chore: sync icons from main"
+            git commit -m "chore: sync icons and ICONS.md from main"
             git push origin gh-pages
           fi
