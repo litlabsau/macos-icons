@@ -22,7 +22,7 @@ output_path="${6:-/Library/Management/Icons}"
 # usage: download_icon <icon> <size> <output_dir>
 #        download_icon catalog -> donwloads the icon catalog MD
 download_from_ghpage() {
-    local gh_page_url="https://litlabsau.github.io/macos-icons"
+    local gh_page_url="https://litlabsau.github.io/iconomator"
     local filepath="png"
     local icon_name="${1}"
     local size="${2}"
