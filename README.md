@@ -11,5 +11,10 @@ If there are any icons you would like uploaded or you would like other file type
 
 ## Usage 
 Ensure you use the public endpoint to reference any icons you wish to use in your deployment tools: 
-```https://litlabsau.github.io/macos-icons/png/{IconName}.png```
+```https://litlabsau.github.io/iconomator/png/{IconName}.png```
 Alternatively, the repo can be cloned if you prefer the icons to be available locally.
+
+## Support
+For community support and discussions, please join us on the Mac Admins Slack channel. Questions, feedback and advice is welcome. 
+
+[Mac Admins Slack:#Iconomator](https://macadmins.slack.com/archives/C0BCYM5L535)
